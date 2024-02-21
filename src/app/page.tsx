@@ -1,113 +1,574 @@
-import Image from "next/image";
+// assumptions:
+// the provided JSON was missing an opening array bracket so i added it
+// the Get Quote button doesn't have to be functional
+// each card has a Get Quote button
+// not being particular about font library since that wasn't specified
+// made eyeball estimates for things such as font size, margin size, color, padding size, border width, etc. since those weren't specified
+// made the layout of the card stretch to take up the whole width of the page
+// i didn't see anything in the json specifying a "featured partner", so i didn't implement a special border for that as seen in mock
+// using a library is ok for icons and star rating
+// precision for the star rating up to the .5 decimal is acceptable
+
+import Rating from '@mui/material/Rating'
+import StarIcon from '@mui/icons-material/Star'
+
+const providerJson = [
+  {
+    _id: '643817b1eeb62ebdc360736a',
+    name: 'Az Custom Landscapes | Artificial Turf Specialist',
+    slug: 'az-custom-landscapes-artificial-turf-specialist-361402',
+    phone: '5207716602',
+    website: 'http://www.azcustomlandscapes.com/',
+    social_media: {
+      facebook: 'https://www.facebook.com/1534320303548898',
+    },
+    address: '1110 E Pennsylvania St Suite 405, Tucson, AZ 85714',
+    street: '1110 E Pennsylvania St Suite 405',
+    city: 'Tucson',
+    state: 'AZ',
+    zip: '85714',
+    latitude: 32.171476,
+    longitude: -110.9547565,
+    nearest_major_citystate: 'TUCSON,AZ',
+    geolocation: {
+      type: 'Point',
+      coordinates: [-110.9547565, 32.171476],
+    },
+    categories: ['lawn'],
+    services: [
+      'Commercial lawn care',
+      'Artificial turf',
+      'Pavers',
+      'Lawn maintenance',
+      'Hardscapes',
+      'Sod installation',
+      'Residential',
+      'Landscaping',
+    ],
+    highlights: [
+      'helps educate customers',
+      'free quotes',
+      'punctual service',
+      'transparent pricing',
+    ],
+    lowlights: {
+      lawn: ['small online presence'],
+    },
+    certifications: {},
+    awards: {},
+    third_party_ratings: {
+      google_places: {
+        review_score: 4.8,
+        review_count: 49,
+      },
+    },
+    rating: {
+      th: 3.6957003966275015,
+      toh: 4.653198163103472,
+    },
+    google_places_id: {
+      data_id: '0x86d67ad741ff5823:0xd37f74388996c98f',
+      data_cid: '15240027450220398991',
+    },
+    is_hidden: false,
+    status: {
+      is_hidden: false,
+      reason: '',
+    },
+    last_updated: '2023-04-13 11:42:19.993000',
+    review_score: 4.8,
+    review_count: 49,
+    distance: 3.8392407694383315,
+  },
+  {
+    _id: '6438165feeb62ebdc3605824',
+    name: 'Horticulture Unlimited, Inc.',
+    slug: 'horticulture-unlimited-inc-584543',
+    phone: '5203214678',
+    website: 'http://www.horticultureunlimited.com/',
+    social_media: {
+      facebook: 'https://www.facebook.com/HorticultureUnlimitedInc',
+      twitter: 'https://twitter.com/HorticultureAZ',
+    },
+    address: '3237 N Richey Blvd, Tucson, AZ 85716',
+    street: '3237 N Richey Blvd',
+    city: 'Tucson',
+    state: 'AZ',
+    zip: '85716',
+    latitude: 32.266126,
+    longitude: -110.91618969999999,
+    nearest_major_citystate: 'CATALINA FOOTHILLS,AZ',
+    geolocation: {
+      type: 'Point',
+      coordinates: [-110.91618969999999, 32.266126],
+    },
+    categories: ['lawn'],
+    services: [
+      'Garden design and maintenance',
+      'Outdoor living space',
+      'Irrigation',
+      'Tree and shrub trimming',
+      'Commercial lawn care',
+      'Lawn maintenance',
+      'Fountains',
+      'Pond installation and maintenance',
+      'Water features',
+      'Tree and shrub pruning',
+      'Landscaping',
+      'Outdoor lighting',
+      'Snow removal',
+      'Lawn mowing',
+      'Residential',
+      'Pavers',
+      'Weed control',
+      'Hardscapes',
+    ],
+    highlights: [
+      'helps educate customers',
+      'good customer service',
+      'transparent pricing',
+    ],
+    lowlights: {
+      lawn: ['small online presence'],
+    },
+    certifications: {},
+    awards: {},
+    third_party_ratings: {
+      google_places: {
+        review_score: 4.6,
+        review_count: 92,
+      },
+    },
+    rating: {
+      th: 3.979283426196193,
+      toh: 4.6,
+    },
+    google_places_id: {
+      data_id: '0x86d671f0144a7065:0x1d67e0f12daa7026',
+      data_cid: '2118909476158992422',
+    },
+    is_hidden: false,
+    status: {
+      is_hidden: false,
+      reason: '',
+    },
+    last_updated: '2023-04-13 11:38:06.543000',
+    review_score: 4.6,
+    review_count: 92,
+    distance: 3.1171953088226085,
+  },
+  {
+    _id: '6438165feeb62ebdc3605823',
+    name: 'Action Yard and Tree Service Tucson AZ | Landscaping Company',
+    slug: 'action-yard-and-tree-service-tucson-az-landscaping-company-908547',
+    phone: '5208294791',
+    website: 'https://actionyardandtree.com/',
+    social_media: {
+      facebook: 'https://www.facebook.com/actionyardandtree/',
+    },
+    address: '3925 E 29th St #403, Tucson, AZ 85711',
+    street: '3925 E 29th St #403',
+    city: 'Tucson',
+    state: 'AZ',
+    zip: '85711',
+    latitude: 32.200514999999996,
+    longitude: -110.908356,
+    nearest_major_citystate: 'TUCSON,AZ',
+    geolocation: {
+      type: 'Point',
+      coordinates: [-110.908356, 32.200514999999996],
+    },
+    categories: ['lawn'],
+    services: [
+      'Irrigation',
+      'Outdoor living space',
+      'Tree and shrub pruning',
+      'Lawn maintenance',
+      'Weed control',
+      'Residential',
+      'Landscaping',
+      'Commercial lawn care',
+      'Tree and shrub trimming',
+    ],
+    highlights: [
+      'helps educate customers',
+      'transparent pricing',
+      'good customer service',
+      'free quotes',
+    ],
+    lowlights: {
+      lawn: ['small online presence'],
+    },
+    certifications: {},
+    awards: {},
+    third_party_ratings: {
+      google_places: {
+        review_score: 4.4,
+        review_count: 133,
+      },
+    },
+    rating: {
+      th: 3.9660275519076853,
+      toh: 4.4,
+    },
+    google_places_id: {
+      data_id: '0x86d66f59632b6fe5:0x19db957ee4e52802',
+      data_cid: '1863247243086473218',
+    },
+    is_hidden: false,
+    status: {
+      is_hidden: false,
+      reason: '',
+    },
+    last_updated: '2023-04-13 11:38:06.506000',
+    review_score: 4.4,
+    review_count: 133,
+    distance: 1.8072380747350796,
+  },
+  {
+    _id: '64381876eeb62ebdc3608342',
+    name: 'Southwest Greens of Tucson',
+    slug: 'southwest-greens-of-tucson-296576',
+    phone: '5208228193',
+    website: 'https://www.swgartificialgrasstucson.com/',
+    social_media: {
+      facebook:
+        'https://www.facebook.com/Southwest-Greens-of-Tucson-172200253727',
+      youtube: 'https://www.youtube.com/channel/UCHQFuGwKV9mIaNoISZW8KWw',
+      instagram: 'https://www.instagram.com/swgreenstucson/?hl=en',
+    },
+    address: '2130 E 12th St #100, Tucson, AZ 85719',
+    street: '2130 E 12th St #100',
+    city: 'Tucson',
+    state: 'AZ',
+    zip: '85719',
+    latitude: 32.2199272,
+    longitude: -110.9402945,
+    nearest_major_citystate: 'TUCSON,AZ',
+    geolocation: {
+      type: 'Point',
+      coordinates: [-110.9402945, 32.2199272],
+    },
+    categories: ['lawn'],
+    services: [
+      'Residential',
+      'Sod installation',
+      'Landscaping',
+      'Lawn maintenance',
+      'Commercial lawn care',
+      'Artificial turf',
+      'Lawn mowing',
+      'Irrigation',
+      'Fertilizing',
+    ],
+    highlights: [
+      'helps educate customers',
+      'good customer service',
+      'transparent pricing',
+    ],
+    lowlights: {
+      lawn: ['small online presence'],
+    },
+    certifications: {},
+    awards: {},
+    third_party_ratings: {
+      google_places: {
+        review_score: 4.2,
+        review_count: 16,
+      },
+    },
+    rating: {
+      th: 3.625347796087865,
+      toh: 4.2,
+    },
+    google_places_id: {
+      data_id: '0x86d673e8c37b54a7:0x5257b63ff2647fd7',
+      data_cid: '5933411419849785303',
+    },
+    is_hidden: false,
+    status: {
+      is_hidden: false,
+      reason: '',
+    },
+    last_updated: '2023-04-13 11:44:49.587000',
+    review_score: 4.2,
+    review_count: 16,
+    distance: 0.8187568257403791,
+  },
+  {
+    _id: '64381699eeb62ebdc3605cd3',
+    name: 'Sonoran Gardens Landscaping Design & Construction',
+    slug: 'sonoran-gardens-landscaping-design-and-construction-608185',
+    phone: '5205799411',
+    website: 'https://sonorangardensinc.com/',
+    social_media: {},
+    address: '4261 W Jeremy Pl Ste 2, Tucson, AZ 85741',
+    street: '4261 W Jeremy Pl Ste 2',
+    city: 'Tucson',
+    state: 'AZ',
+    zip: '85741',
+    latitude: 32.3351055,
+    longitude: -111.0570257,
+    nearest_major_citystate: 'CASAS ADOBES,AZ',
+    geolocation: {
+      type: 'Point',
+      coordinates: [-111.0570257, 32.3351055],
+    },
+    categories: ['lawn'],
+    services: [
+      'Irrigation',
+      'Fertilizing',
+      'Residential',
+      'Pavers',
+      'Outdoor living space',
+      'Fountains',
+      'Landscaping',
+      'Pond installation and maintenance',
+      'Tree and shrub trimming',
+      'Water features',
+      'Lawn maintenance',
+      'Outdoor lighting',
+      'Garden design and maintenance',
+      'Lawn mowing',
+      'Hardscapes',
+      'Tree and shrub pruning',
+    ],
+    highlights: [
+      'helps educate customers',
+      'good customer service',
+      'transparent pricing',
+    ],
+    lowlights: {
+      lawn: ['small online presence'],
+    },
+    certifications: {},
+    awards: {},
+    third_party_ratings: {
+      google_places: {
+        review_score: 3.9,
+        review_count: 27,
+      },
+    },
+    rating: {
+      th: 3.797856453440036,
+      toh: 3.9,
+    },
+    google_places_id: {
+      data_id: '0x86d6752d9ba7055f:0x8e72c22f917ac670',
+      data_cid: '10264480010290775664',
+    },
+    is_hidden: false,
+    status: {
+      is_hidden: false,
+      reason: '',
+    },
+    last_updated: '2023-04-13 11:38:50.333000',
+    review_score: 3.9,
+    review_count: 27,
+    distance: 10.927731497095678,
+  },
+  {
+    _id: '6438173aeeb62ebdc36069c0',
+    name: 'Grasshopper Landscaping & Maintenance',
+    slug: 'grasshopper-landscaping-and-maintenance-119234',
+    phone: '5204568945',
+    website: 'http://www.grasshopper-landscaping.com/',
+    social_media: {
+      twitter: 'https://twitter.com/GrasshopperLan2',
+    },
+    address: '698 Gonzales Blvd, Huachuca City, AZ 85616',
+    street: '698 Gonzales Blvd',
+    city: 'Huachuca City',
+    state: 'AZ',
+    zip: '85616',
+    latitude: 31.637770000000003,
+    longitude: -110.33650399999999,
+    nearest_major_citystate: 'TUCSON,AZ',
+    geolocation: {
+      type: 'Point',
+      coordinates: [-110.33650399999999, 31.637770000000003],
+    },
+    categories: ['lawn'],
+    services: [
+      'Debris removal',
+      'Pond installation and maintenance',
+      'Landscaping',
+      'Residential',
+      'Hardscapes',
+      'Tree and shrub pruning',
+      'Weed control',
+      'Fertilizing',
+      'Commercial lawn care',
+      'Pavers',
+      'Outdoor living space',
+      'Lawn mowing',
+      'Lawn maintenance',
+      'Irrigation',
+    ],
+    highlights: ['helps educate customers'],
+    lowlights: {
+      lawn: ['small online presence'],
+    },
+    certifications: {},
+    awards: {},
+    third_party_ratings: {
+      google_places: {
+        review_score: 4.4,
+        review_count: 111,
+      },
+    },
+    rating: {
+      th: 3.572408476616635,
+      toh: 4.4,
+    },
+    google_places_id: {
+      data_id: '0x86d71c7868efcd49:0xef4b68518718c953',
+      data_cid: '17242990297686264147',
+    },
+    is_hidden: false,
+    status: {
+      is_hidden: false,
+      reason: '',
+    },
+    last_updated: '2023-04-13 11:40:51.437000',
+    review_score: 4.4,
+    review_count: 111,
+    distance: 53.11051088880209,
+  },
+  {
+    _id: '6438178feeb62ebdc36070b4',
+    name: 'A&L landscaping LLC',
+    slug: 'aandl-landscaping-llc-172036',
+    phone: '5202555986',
+    website: 'https://al-landscaping-llc.business.site/',
+    social_media: {},
+    address: '128 6th St, Sierra Vista, AZ 85635',
+    street: '128 6th St',
+    city: 'Sierra Vista',
+    state: 'AZ',
+    zip: '85635',
+    latitude: 31.557773500000003,
+    longitude: -110.29251839999999,
+    nearest_major_citystate: 'TUCSON,AZ',
+    geolocation: {
+      type: 'Point',
+      coordinates: [-110.29251839999999, 31.557773500000003],
+    },
+    categories: ['lawn'],
+    services: [
+      'Residential',
+      'Lawn maintenance',
+      'Landscaping',
+      'Commercial lawn care',
+    ],
+    highlights: ['free quotes', 'good customer service', 'transparent pricing'],
+    lowlights: {
+      lawn: ['small online presence'],
+    },
+    certifications: {},
+    awards: {},
+    third_party_ratings: {
+      google_places: {
+        review_score: 4.9,
+        review_count: 24,
+      },
+    },
+    rating: {
+      th: 3.823621810074416,
+      toh: 4.5235319828815115,
+    },
+    google_places_id: {
+      data_id: '0x86d729133540ddab:0x65ee5dffa65308a5',
+      data_cid: '7344911394876360869',
+    },
+    is_hidden: false,
+    status: {
+      is_hidden: false,
+      reason: '',
+    },
+    last_updated: '2023-04-13 11:41:54.533000',
+    review_score: 4.9,
+    review_count: 24,
+    distance: 59.00594441673998,
+  },
+]
+
+// build the sorting buttons
+// default load order should be the default order of the json provided
+// incorporate data for sorting around star rating, services offered, and distance
+// abstract the Card into its own component
+// abstract the icons into separate components
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      {providerJson.map((company) => (
+        <div className='mx-8 mt-8'>
+          <div className='px-8 py-6 border border-solid border-slate-200 rounded-md'>
+            <div className='h-16 flex justify-between pb-3'>
+              <img
+                src={`https://d126ytvel6227q.cloudfront.net/logos/${company.slug}.jpg`}
+                alt='company image'
+              />
+              <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold px-14 text-lg'>
+                Get Quote
+              </button>
+            </div>
+            <div className='pb-3'>
+              <h1 className='font-extrabold text-lg pb-2'>{company.name}</h1>
+              <div className='flex'>
+                <Rating
+                  name='text-feedback'
+                  value={company.review_score}
+                  readOnly
+                  precision={0.5}
+                  emptyIcon={
+                    <StarIcon style={{ opacity: 0.55 }} fontSize='inherit' />
+                  }
+                />
+                <p className='font-extrabold'>{company.review_score}/5</p>
+                <p className='text-gray-500 px-2'>|</p>
+                <p className='text-gray-500'>{company.address}</p>
+              </div>
+            </div>
+            <div className='pb-5'>
+              <ul className='inline'>
+                {company.highlights.map((highlight, index) => (
+                  <li key={index} className='inline-block pr-3 capitalize'>
+                    {highlight}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className='pb-5'>
+              <h3 className='uppercase text-gray-500 font-bold'>
+                Services Offered
+              </h3>
+              <ul className='inline'>
+                {company.services.map((service, index) => (
+                  <li key={index} className='inline-block pr-3 capitalize'>
+                    {service}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h2 className='uppercase pb-2 text-gray-500 font-bold'>
+                Experiences
+              </h2>
+              <div className='flex-col bg-gray-100 p-4'>
+                <p className='italic'>
+                  “We could not be happier with our landscaping services. Lorem
+                  ipsum dolor sit amet consectetur. Dictum fusce dignissim non
+                  in magna id. Elementum enim leo aliquam gravida phasellus eget
+                  nulla.”
+                </p>
+                <p className='text-right'>- Shane D.</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+      ))}
+    </>
+  )
 }
