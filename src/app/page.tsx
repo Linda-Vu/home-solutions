@@ -1,3 +1,4 @@
+'use client'
 // assumptions:
 // the provided JSON was missing an opening array bracket so i added it
 // the Get Quote button doesn't have to be functional
@@ -11,6 +12,7 @@
 
 import Rating from '@mui/material/Rating'
 import StarIcon from '@mui/icons-material/Star'
+import React, { useState } from 'react'
 
 const providerJson = [
   {
@@ -498,11 +500,46 @@ const providerJson = [
 // incorporate data for sorting around star rating, services offered, and distance
 // abstract the Card into its own component
 // abstract the icons into separate components
+// add icons for highlights
+// add icons for services offered
+// change json constant to a mock api call
 
 export default function Home() {
+  const [initialData, setInitialData] = React.useState(providerJson)
+
+  const resetSorting = () => {
+    setInitialData(providerJson)
+  }
+
+  const handleSortByReview = () => {
+    const sortedByReview = [...initialData].sort(
+      (a, b) => b.review_score - a.review_score
+    )
+    setInitialData(sortedByReview)
+  }
+
+  const handleSortByDistance = () => {
+    const sortedByDistance = [...initialData].sort(
+      (a, b) => a.distance - b.distance
+    )
+    setInitialData(sortedByDistance)
+  }
+
+  React.useEffect(() => {
+    handleSortByReview()
+    handleSortByDistance()
+  }, [])
+
   return (
     <>
-      {providerJson.map((company) => (
+      <button onClick={resetSorting} className='pr-4'>
+        Reset
+      </button>
+      <button onClick={handleSortByReview} className='pr-4'>
+        Rating
+      </button>
+      <button onClick={handleSortByDistance}>Distance</button>
+      {initialData.map((company) => (
         <div className='mx-8 mt-8'>
           <div className='px-8 py-6 border border-solid border-slate-200 rounded-md'>
             <div className='h-16 flex justify-between pb-3'>
@@ -531,14 +568,11 @@ export default function Home() {
                 <p className='text-gray-500'>{company.address}</p>
               </div>
             </div>
-            <div className='pb-5'>
-              <ul className='inline'>
-                {company.highlights.map((highlight, index) => (
-                  <li key={index} className='inline-block pr-3 capitalize'>
-                    {highlight}
-                  </li>
-                ))}
-              </ul>
+            <div className='pb-5 flex'>
+              {company.review_count >= 100 ? (
+                <p className='pr-2'>Popular</p>
+              ) : null}
+              {company.distance < 5 ? <p>Nearby</p> : null}
             </div>
             <div className='pb-5'>
               <h3 className='uppercase text-gray-500 font-bold'>
