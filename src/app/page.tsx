@@ -2,15 +2,15 @@
 // assumptions:
 // didn't create feature branch for this since i'm the only person working on it
 // the provided JSON was missing an opening array bracket so i added it
-// the Get Quote button doesn't have to be functional
 // each card has a Get Quote button
 // not being particular about font library since that wasn't specified
 // made eyeball estimates for things such as font size, margin size, color, padding size, border width, etc. since those weren't specified
 // made the layout of the card stretch to take up the whole width of the page
 // i didn't see anything in the json specifying a "featured partner", so i didn't implement a special border for that as seen in mock
-// using a library is ok for icons and star rating
+// using a library of my choice is ok for icons and star rating
+// the info tip next to the star rating does not need to be implemented because the design showed dummy text and the directions didn't specify what i should use to determine that a company is better than other companies
 // precision for the star rating up to the .5 decimal is acceptable
-// data will be reliable
+// "filtering for rating and distance" should be sorts, whereas "filtering by service" is an actual filter
 
 import React from 'react'
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material'
