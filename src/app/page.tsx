@@ -559,8 +559,8 @@ export default function Home() {
 
   return (
     <>
-      <h1 className='sr-only'>Landscaping Companies</h1>
       {/* added this for semantic accuracy/ADA/screenreader support */}
+      <h1 className='sr-only'>Landscaping Companies</h1>
       {/* TODO: abstract the sort buttons into their own reusable component */}
       <div className='mx-8 mt-2 py-2 flex justify-end'>
         {/* TODO change the appearance of this reset button into a more minimalistic "X" */}
