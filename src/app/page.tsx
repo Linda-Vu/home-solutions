@@ -578,7 +578,11 @@ export default function Home() {
           Rating
         </button>
         {/* TODO: convert this a multi-select */}
-        <FormControl sx={{ m: 1, width: 200 }} className='m-0 mx-2'>
+        <FormControl
+          sx={{ m: 1, width: 200 }}
+          className='mx-2'
+          style={{ margin: 0 }}
+        >
           <InputLabel className='uppercase font-bold text-lg text-gray-500'>
             Services
           </InputLabel>
